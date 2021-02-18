@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: 0.0.0.0
+  username: postgres
+  password:
+  pool: 5
+
+development:
+  <<: *default
+  database: osso-development
+test:
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  database: osso-test
+  host: ''
+  port: 5432
+
+production:
+  adapter: postgresql

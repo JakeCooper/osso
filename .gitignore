@@ -1,0 +1,16 @@
+node_modules
+/.env
+yarn-error.log
+.DS_Store
+public/*
+!public/favicon
+**dist
+.yalc
+yalc.lock
+coverage
+cypress/screenshots
+cypress/videos
+cypress/fixtures
+cypress/downloads
+parcel-bundle-reports/
+.parcel-cache

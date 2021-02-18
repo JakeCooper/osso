@@ -1,0 +1,23 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  labels:
+    - "dependencies"
+    - "javascript"
+    - "automerge"
+- package-ecosystem: bundler
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  labels:
+    - "dependencies"
+    - "ruby"
+    - "automerge"
+  ignore:
+    - dependency-name: "sinatra-activerecord"
+      versions: ["2.0.21"]

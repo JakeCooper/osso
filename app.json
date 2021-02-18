@@ -1,0 +1,81 @@
+{
+  "name": "Osso",
+  "description": "Open Source Single Sign-On - authenticate SAML users from SSO IDPs into your application",
+  "keywords": [
+    "enterprise",
+    "SSO",
+    "SAML"
+  ],
+  "logo": "https://www.ossoapp.com/img/logo.svg",
+  "repository": "https://github.com/enterprise-oss/osso",
+  "website": "https://ossoapp.com",
+  "success_url": "/admin/login",
+  "scripts": {
+    "postdeploy": "bundle exec rake osso:bootstrap"
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/ruby"
+    },
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "env": {
+    "ADMIN_EMAIL": {
+      "description": "Your email address for creating the first user account"
+    },
+    "BASE_URL": {
+      "description": "The host where your application is deployed - replace APP-NAME with the app name you choose above, and be usre to update this ENV var when you set up a custom domain",
+      "value": "https://APP-NAME.herokuapp.com"
+    },
+    "SESSION_SECRET": {
+      "description": "A secret key for verifying the integrity of signed cookies.",
+      "generator": "secret"
+    },
+    "CYPRESS_INSTALL_BINARY": {
+      "description": "Prevent heroku from installing the Cypress binary during deploy",
+      "value": "0"
+    },
+    "SMTP_LOGIN": {
+      "description": "SMTP server login - email sending is needed for team management. We recommend Mailgun"
+    },
+    "SMTP_PASSWORD": {
+      "description": "SMTP server password."
+    },
+    "SMTP_DOMAIN": {
+      "description": "A domain you own and can send SMTP emails from"
+    },
+    "SMTP_PORT": {
+      "value": "25"
+    },
+    "SMTP_SERVER": {
+      "description": "The location of your SMTP server for sending email, i.e. smtp.mailgun.org"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql"
+    }
+  ],
+  "environments": {
+    "review": {
+      "addons": [],
+      "formation": [{
+        "web": {
+          "quantity": 1,
+          "size": "free"
+        }
+      }]
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "hobby"
+    }
+  },
+  "scripts": {
+    "postdeploy": "bundle exec rake osso:bootstrap"
+  }
+}

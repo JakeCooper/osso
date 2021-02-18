@@ -1,0 +1,25 @@
+.modalHeader{
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 28px;
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+
+.modalBody {
+  margin: 33px 0;
+}
+
+.loaderContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 260px;
+}
+
+.loaderText{
+  font-weight: 600;
+  font-size: 16px;
+  margin-top: 24px;
+}

@@ -1,0 +1,60 @@
+steps:
+
+  - commands: 
+    - bundle install
+    - dropdb osso-development --if-exists
+    - dropdb osso-test --if-exists
+    - createdb osso-development
+    - createdb osso-test
+    - bundle exec rspec
+    label: ":rspec:"
+    artifact_paths:
+      - coverage/*
+  
+  - wait
+
+  - commands: 
+    - "yarn install"
+    - "yarn typecheck"
+    label: ":typescript:"
+
+  - wait
+  
+  - commands: 
+    - "yarn install"
+    - "yarn lint"
+    label: ":eslint:"
+
+  - wait
+  
+  - commands: 
+    - "yarn install"
+    - "yarn test --collectCoverage"
+    label: ":jest:"
+    artifact_paths:
+      - coverage/*
+
+  - wait
+
+  - name: ":codeclimate:"
+    commands:
+      - '.buildkite/report-coverage.sh'
+    soft_fail: true
+
+  - wait
+
+  - name: ":broom:"
+    commands: "yarn clean"
+    branches: "main"
+
+  - wait
+
+  - commands:
+      - "yarn clean"
+      - "yarn install"
+      - "yarn build"
+      - "yarn cypress:ci"
+    label: ":parcel: :cypress:"
+    artifact_paths:
+      - cypress/videos/*
+      - .parcel-bundle-reports/*

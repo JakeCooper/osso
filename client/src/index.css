@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior-y: none;
+}
+
+#root {
+  min-height: 100%;
+  display: flex;
+  flex-grow: 1;
+  overscroll-behavior-x: none;
+}
+
+.ant-card-body::after {
+  display: none !important;
+}

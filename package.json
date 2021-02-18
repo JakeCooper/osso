@@ -1,0 +1,116 @@
+{
+  "license": "SEE LICENSE IN LICENSE",
+  "scripts": {
+    "start:server": "RACK_ENV=test bundle exec rackup -p 9292",
+    "start:spec_sp": "cd ./spec/support/spec_sp/ && bundle install && RACK_ENV=test bundle exec rackup -p 4567",
+    "cypress:open": "cypress open",
+    "cypress:ci": "start-test start:server http-get://localhost:9292/health start:spec_sp http-get://localhost:4567/ 'cypress run'",
+    "start": "yarn build-saml-assets && parcel serve ./client/src/index.tsx ",
+    "build": "yarn build-saml-assets && parcel build ./client/src/index.tsx --dist-dir ./public --log-level=warn",
+    "typecheck": "tcm client/src && tsc --noEmit --project client/tsconfig.json && git clean client/src -f -x",
+    "build-saml-assets": "parcel build assets/saml.* --dist-dir ./public",
+    "clean": "rm -rf client/dist && rm -rf .parcel-cache && git clean -f -x ./public/",
+    "test": "jest",
+    "lint": "eslint 'client/src/**/*.{js,jsx,ts,tsx}'",
+    "lintfix": "eslint 'client/src/**/*.{js,jsx,ts,tsx}' --fix",
+    "postinstall": "husky install",
+    "prepublishOnly": "pinst --disable",
+    "postpublish": "pinst --enable"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/plugin-proposal-optional-chaining": "^7.12.16",
+    "@babel/preset-typescript": "^7.12.16",
+    "@parcel/babel-preset-env": "^2.0.0-alpha.3",
+    "@parcel/optimizer-cssnano": "2.0.0-nightly.599",
+    "@parcel/packager-css": "2.0.0-nightly.599",
+    "@parcel/transformer-css": "2.0.0-nightly.599",
+    "@parcel/transformer-less": "^2.0.0-nightly.599",
+    "@parcel/transformer-postcss": "^2.0.0-nightly.599",
+    "@parcel/transformer-svg-react": "^2.0.0-nightly.1739",
+    "@rfgamaral/parcel-plugin-typings-for-css-modules": "^1.0.4",
+    "@svgr/parcel-plugin-svgr": "^5.4.0",
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
+    "@types/enzyme": "^3.10.8",
+    "@types/node": "^14.14.28",
+    "@types/react": "^17.0.2",
+    "@types/react-dom": "^17.0.1",
+    "@types/react-router-dom": "^5.1.7",
+    "@types/webpack-env": "^1.16.0",
+    "@typescript-eslint/eslint-plugin": "^4.15.1",
+    "@typescript-eslint/parser": "^4.15.1",
+    "autoprefixer": "^10.2.4",
+    "babel-plugin-import": "^1.13.3",
+    "browserslist": "^4.16.3",
+    "chrome-remote-interface": "^0.29.0",
+    "chromium": "^3.0.2",
+    "cypress": "^6.5.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "eslint": "^7.20.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-cypress": "^2.11.2",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "faker": "^5.4.0",
+    "husky": "5",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^26.6.3",
+    "jest-fetch-mock": "^3.0.3",
+    "less": "^4.1.1",
+    "parcel": "2.0.0-nightly.597",
+    "parcel-plugin-bundle-visualiser": "^1.2.0",
+    "pinst": "^2.1.4",
+    "postcss": "^8.2.6",
+    "postcss-modules": "^4.0.0",
+    "prettier": "^2.2.1",
+    "start-server-and-test": "^1.12.0",
+    "typescript": "^4.1.5",
+    "typescript-plugin-css-modules": "^3.2.0"
+  },
+  "dependencies": {
+    "@ant-design/colors": "^6.0.0",
+    "@ant-design/icons": "^4.5.0",
+    "@enterprise-oss/ant-theme": "^1.0.7",
+    "@enterprise-oss/osso": "^0.1.3",
+    "@sentry/react": "^6.1.0",
+    "antd": "^4.12.3",
+    "date-fns": "^2.17.0",
+    "posthog-js": "^1.8.7",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.1",
+    "react-copy-to-clipboard": "^5.0.3",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
+    "use-debounce": "^5.2.0"
+  },
+  "browserslist": {
+    "development": [
+      "last 1 Chrome version"
+    ],
+    "production": [
+      "defaults"
+    ]
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(png|svg)$": "<rootDir>/client/__mocks__/fileMock.js",
+      "\\.(css|less)$": "identity-obj-proxy",
+      "~(.*)$": "<rootDir>/$1",
+      "@enterprise-oss/ant-theme": "identity-obj-proxy"
+    },
+    "testPathIgnorePatterns": [
+      "<rootDir>/.yalc/*",
+      "<rootDir>/node_modules/*",
+      "<rootDir>/cypress/*"
+    ],
+    "setupFiles": [
+      "<rootDir>/client/jest.setup.js"
+    ]
+  },
+  "engines": {
+    "node": ">= 14.4.0"
+  }
+}
